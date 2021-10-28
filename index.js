@@ -14,13 +14,17 @@ function middlewareLogger(config) {
 
     // Check logger config for requried params
     if (!config || !config.streams || !config.streams.length) {
-        // Log config warning to stdout 
-        utils.logConfigWarning();
+        if (!config.stdout) {
+            // Log config warning to stdout 
+            utils.logConfigWarning();
 
-        // And continue express middleware chain execution
-        return function (req, res, next) {
-            next();
+            // And continue express middleware chain execution
+            return function (req, res, next) {
+                next();
+            }
         }
+
+        config.streams ??= [];
     }
 
     // Sort config params for middleware execution

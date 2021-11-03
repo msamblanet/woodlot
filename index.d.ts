@@ -1,7 +1,8 @@
 import type { Writable } from 'node:stream';
 import type { EventEmitter } from 'node:events';
+import type { RequestHandler } from 'express';
 
-export interface IWoodlotOptions {
+export interface IMiddlewareOptions {
   streams?: Writable[];
   stdout?: boolean;
   routes?: {
@@ -46,7 +47,6 @@ export interface ICustomLogger {
   err: (message: string) => void;
 }
 
-export function middlewareLogger(config: IMiddlewareOptions): (req: any, res: any, next: any) => void;
+export function middlewareLogger(config: IMiddlewareOptions): RequestHandler;
 export function customLogger(config: ICustomOptions): ICustomLogger;
 export const events: EventEmitter;
-export { events, middlewareLogger, customLogger };
